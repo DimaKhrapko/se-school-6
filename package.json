@@ -1,0 +1,25 @@
+{
+  "name": "se-school-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DimaKhrapko/se-school-6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DimaKhrapko/se-school-6/issues"
+  },
+  "homepage": "https://github.com/DimaKhrapko/se-school-6#readme",
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "fastify": "^5.8.4",
+    "pg": "^8.20.0"
+  }
+}
