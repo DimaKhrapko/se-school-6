@@ -10,7 +10,7 @@ export async function up(knex) {
     table.string('repo').notNullable();
     table.string('token').notNullable().unique();
     table.boolean('confirmed').defaultTo(false);
-    table.string('last_seen_tag').notNullable();
+    table.string('last_seen_tag').nullable();
 
     table.unique(['email', 'repo']);
   })

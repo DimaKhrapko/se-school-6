@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/DimaKhrapko/se-school-6#readme",
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "dotenv": "^17.4.1",
     "fastify": "^5.8.4",
     "knex": "^3.2.9",

@@ -1,8 +1,13 @@
+import fastifyFormbody from "@fastify/formbody";
 import Fastify from "fastify";
+import routes from "./routes.js";
 
 const fastify = Fastify({
   logger: true,
 });
+
+fastify.register(fastifyFormbody);
+fastify.register(routes, { prefix: "/api" });
 
 const start = async () => {
   try {
