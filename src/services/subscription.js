@@ -17,4 +17,12 @@ async function confirmSubscription(token) {
     .update({ confirmed: true });
 }
 
-export { createSubscription, confirmSubscription };
+async function cancelSubscription(token) {
+  return await db("subscriptions").where({ token: token }).del();
+}
+
+async function checkSubscription(email) {
+  return (await db("subscriptions").select("email", "repo", "confirmed", "last_seen_tag").where({email: email}))
+}
+
+export { createSubscription, confirmSubscription, cancelSubscription, checkSubscription };

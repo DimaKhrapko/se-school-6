@@ -1,6 +1,8 @@
 import {
   createSubscription,
   confirmSubscription,
+  cancelSubscription,
+  checkSubscription,
 } from "../services/subscription.js";
 
 const tokenValidScheme = {
@@ -27,6 +29,17 @@ const subscribeBodyScheme = {
     repo: {
       type: "string",
       pattern: "^[a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+$",
+    },
+  },
+};
+
+const emailQueryScheme = {
+  type: "object",
+  required: ["email"],
+  properties: {
+    email: {
+      type: "string",
+      format: "email",
     },
   },
 };
@@ -88,6 +101,50 @@ async function routes(fastify, options) {
       return reply
         .status(200)
         .send({ message: "Subscription confirmed successfully" });
+    },
+  );
+  fastify.get(
+    "/unsubscribe/:token",
+    {
+      schema: {
+        params: tokenValidScheme,
+      },
+      attachValidation: true,
+    },
+    async (request, reply) => {
+      if (request.validationError) {
+        return reply.status(400).send({ message: "Invalid token" });
+      }
+
+      const { token } = request.params;
+
+      const isCancelled = await cancelSubscription(token);
+      if (!isCancelled) {
+        return reply.status(404).send({ message: "Token not found" });
+      }
+
+      return reply.status(200).send({ message: "Unsubscribed successfully" });
+    },
+  );
+
+  fastify.get(
+    "/subscriptions",
+    {
+      schema: {
+        querystring: emailQueryScheme,
+      },
+      attachValidation: true,
+    },
+    async (request, reply) => {
+      if (request.validationError) {
+        return reply.status(400).send({ message: "Invalid email" });
+      }
+
+      const { email } = request.query;
+
+      const userSubscriptions = await checkSubscription(email);
+
+      return reply.status(200).send( userSubscriptions );
     },
   );
 }
