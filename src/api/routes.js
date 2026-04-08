@@ -5,7 +5,7 @@ import {
   checkSubscription,
 } from "../services/subscription.js";
 
-import checkRepoExists from "../services/github.js";
+import {checkRepoExists} from "../services/github.js";
 
 const tokenValidScheme = {
   type: "object",
