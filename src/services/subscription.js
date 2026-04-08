@@ -22,7 +22,14 @@ async function cancelSubscription(token) {
 }
 
 async function checkSubscription(email) {
-  return (await db("subscriptions").select("email", "repo", "confirmed", "last_seen_tag").where({email: email}))
+  return await db("subscriptions")
+    .select("email", "repo", "confirmed", "last_seen_tag")
+    .where({ email: email });
 }
 
-export { createSubscription, confirmSubscription, cancelSubscription, checkSubscription };
+export {
+  createSubscription,
+  confirmSubscription,
+  cancelSubscription,
+  checkSubscription,
+};

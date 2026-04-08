@@ -5,6 +5,8 @@ import {
   checkSubscription,
 } from "../services/subscription.js";
 
+import checkRepoExists from "../services/github.js";
+
 const tokenValidScheme = {
   type: "object",
   required: ["token"],
@@ -62,12 +64,23 @@ async function routes(fastify, options) {
       const { email, repo } = request.body;
 
       try {
+        const repoExists = await checkRepoExists(repo);
+        if (!repoExists) {
+          return reply
+            .status(404)
+            .send({ message: "Repository not found on GitHub" });
+        }
+
         await createSubscription(email, repo);
       } catch (err) {
         if (err.code === "23505") {
           return reply
             .status(409)
             .send({ message: "Email already subscribed to this repository" });
+        }
+        if (err.status === 429) {
+          console.error("GitHub API Rate Limit exceeded!");
+          return reply.status(500).send({ message: "Internal server error" });
         }
         return reply.status(500).send({ message: "Internal server error" });
       }
@@ -144,7 +157,7 @@ async function routes(fastify, options) {
 
       const userSubscriptions = await checkSubscription(email);
 
-      return reply.status(200).send( userSubscriptions );
+      return reply.status(200).send(userSubscriptions);
     },
   );
 }
