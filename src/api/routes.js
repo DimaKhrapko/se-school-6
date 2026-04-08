@@ -1,4 +1,20 @@
-import createSubscription from "../services/subscription.js";
+import {
+  createSubscription,
+  confirmSubscription,
+} from "../services/subscription.js";
+
+const tokenValidScheme = {
+  type: "object",
+  required: ["token"],
+  properties: {
+    token: {
+      type: "string",
+      minLength: 32,
+      maxLength: 32,
+      pattern: "^[0-9a-f]{32}",
+    },
+  },
+};
 
 const subscribeBodyScheme = {
   type: "object",
@@ -46,6 +62,32 @@ async function routes(fastify, options) {
       return reply
         .status(200)
         .send({ message: "Subscription successful. Confirmation email sent." });
+    },
+  );
+
+  fastify.get(
+    "/confirm/:token",
+    {
+      schema: {
+        params: tokenValidScheme,
+      },
+      attachValidation: true,
+    },
+    async (request, reply) => {
+      if (request.validationError) {
+        return reply.status(400).send({ message: "Invalid token" });
+      }
+
+      const { token } = request.params;
+
+      const isConfirmed = await confirmSubscription(token);
+      if (!isConfirmed) {
+        return reply.status(404).send({ message: "Token not found" });
+      }
+
+      return reply
+        .status(200)
+        .send({ message: "Subscription confirmed successfully" });
     },
   );
 }
