@@ -5,7 +5,7 @@ import { sendReleaseEmail } from "../services/mailer.js";
 
 let globalPauseUntil = 0;
 
-async function runScanner() {
+export async function runScanner() {
   if(Date.now() < globalPauseUntil) {
     return
   };
@@ -68,7 +68,7 @@ async function runScanner() {
 
           if(resetTimestamp) {
             const resetDate = new Date(resetTimestamp * 1000);
-            globalPauseUntil = resetDate.getDate();
+            globalPauseUntil = resetDate.getTime();
             console.log("GitHub API Rate Limit Exceeded")
           }
           break;
