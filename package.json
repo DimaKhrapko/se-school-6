@@ -5,7 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "test"
+    "start": "node src/app.js",
+    "db:migrate": "knex migrate:latest --knexfile ./src/config/knexfile.cjs"
+
   },
   "repository": {
     "type": "git",

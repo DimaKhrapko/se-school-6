@@ -1,4 +1,3 @@
-// Update with your config settings.
 const path = require('path');
 require('dotenv').config({path: path.join(__dirname, '../', '../', '.env')});
 /**
@@ -15,7 +14,7 @@ module.exports = {
       database: process.env.DB_NAME || "github-notifier-db",
     },
     migrations: {
-      directory: path.join(__dirname, 'migrations'),
+      directory: '../db/migrations',
     }
   },
 

@@ -1,5 +1,3 @@
-import { configDotenv } from "dotenv";
-
 async function checkRepoExists(repo) {
   const url = `https://api.github.com/repos/${repo}`;
 

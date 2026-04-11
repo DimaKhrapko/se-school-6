@@ -1,6 +1,7 @@
 import cron from "node-cron";
-import db from "../config/database.js";
+import db from "../db/database.js";
 import { getReleaseTag } from "../services/github.js";
+import { sendReleaseEmail } from "../services/mailer.js";
 
 async function runScanner() {
   try {
@@ -39,6 +40,7 @@ async function runScanner() {
             .where({ repo, confirmed: true });
           const emails = subscribers.map((sub) => sub.email);
           if (emails.length > 0) {
+            await sendReleaseEmail(emails, repo, latestTag);
             console.log(`Sending from ${repo} to ${emails.length}`);
           }
 

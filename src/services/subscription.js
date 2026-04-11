@@ -1,5 +1,6 @@
 import crypto from "crypto";
-import db from "../config/database.js";
+import db from "../db/  database.js";
+import { sendConfirmationEmail } from "./mailer.js";
 
 async function createSubscription(email, repo) {
   const token = crypto.randomBytes(16).toString("hex");
@@ -8,6 +9,9 @@ async function createSubscription(email, repo) {
     repo,
     token,
     last_seen_tag: "",
+  });
+  sendConfirmationEmail(email, token, repo).catch((err) => {
+    console.log("Failed to send confirmaiton email", err);
   });
 }
 
