@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import db from "../db/  database.js";
+import db from "../db/database.js";
 import { sendConfirmationEmail } from "./mailer.js";
 
 async function createSubscription(email, repo) {

@@ -46,6 +46,7 @@ async function getReleaseTag(repo) {
   if (response.status === 403 || response.status === 429) {
     const error = new Error("GitHub API Rate Limit Exceeded");
     error.status = 429;
+    error.resetTimestamp = response.headers.get('x-ratelimit-reset');
     throw error;
   }
 
