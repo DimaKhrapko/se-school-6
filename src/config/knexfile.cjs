@@ -3,6 +3,8 @@ require('dotenv').config({path: path.join(__dirname, '../', '../', '.env')});
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+
+const databaseName = process.env.NODE_ENV === 'test' ? `${process.env.DB_NAME}_test` : process.env.DB_NAME
 module.exports = {
   development: {
     client: "pg",
@@ -11,10 +13,10 @@ module.exports = {
       port: process.env.DB_PORT || 5432,
       user: process.env.DB_USER || "postgres",
       password: process.env.DB_PASSWORD || "password",
-      database: process.env.DB_NAME || "github-notifier-db",
+      database: databaseName,
     },
     migrations: {
-      directory: '../db/migrations',
+      directory: path.join(__dirname, '../db/migrations'),
     }
   },
 

@@ -81,5 +81,6 @@ export async function runScanner() {
 }
 
 export async function initScanner() {
-  cron.schedule("* * * * *", runScanner);
+  runScanner();
+  setInterval(runScanner, 60 * 1000);
 }

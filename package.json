@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "pretest": "node scripts/setup_test_db.js",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "db:migrate": "knex migrate:latest --knexfile ./src/config/knexfile.cjs",
     "db:rollback": "knex migrate:rollback --knexfile ./src/config/knexfile.cjs",
     "db:make": "knex migrate:make --knexfile ./src/config/knexfile.cjs"
@@ -31,6 +32,7 @@
     "pg": "^8.20.0"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "jest": "^30.3.0"
   }
 }
