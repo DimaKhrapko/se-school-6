@@ -35,7 +35,7 @@ async function sendReleaseEmail(email, repo, latestTag, token) {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
     console.log("email was sent");
   } catch (err) {
     console.error(err.message);
@@ -73,7 +73,7 @@ async function sendConfirmationEmail(email, token, repo) {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
     console.log("Confirmation email was sent");
   } catch (err) {
     console.error(err.message);

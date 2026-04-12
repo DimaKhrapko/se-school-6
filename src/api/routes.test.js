@@ -325,7 +325,7 @@ describe("GET /api/subscriptions", () => {
     const body = JSON.parse(response.payload);
 
     expect(Array.isArray(body)).toBe(true);
-    expect(body.length).toBe(2);
+    expect(body).toHaveLength(2);
 
     const repos = body.map((sub) => sub.repo);
 
@@ -360,6 +360,6 @@ describe("GET /api/subscriptions", () => {
     const body = JSON.parse(response.payload);
 
     expect(Array.isArray(body)).toBe(true);
-    expect(body.length).toBe(0);
+    expect(body).toHaveLength(0);
   });
 });

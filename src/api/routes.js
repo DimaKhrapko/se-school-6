@@ -46,7 +46,7 @@ const emailQueryScheme = {
   },
 };
 
-async function routes(fastify, options) {
+async function routes(fastify, _options) {
   fastify.post(
     "/subscribe",
     {

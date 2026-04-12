@@ -10,7 +10,9 @@
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "db:migrate": "knex migrate:latest --knexfile ./src/config/knexfile.cjs",
     "db:rollback": "knex migrate:rollback --knexfile ./src/config/knexfile.cjs",
-    "db:make": "knex migrate:make --knexfile ./src/config/knexfile.cjs"
+    "db:make": "knex migrate:make --knexfile ./src/config/knexfile.cjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -33,6 +35,9 @@
   },
   "devDependencies": {
     "cross-env": "^10.1.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.15.2",
     "jest": "^30.3.0"
   }
 }

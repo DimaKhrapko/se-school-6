@@ -1,4 +1,3 @@
-import cron from "node-cron";
 import db from "../db/database.js";
 import { getReleaseTag } from "../services/github.js";
 import { sendReleaseEmail } from "../services/mailer.js";
