@@ -118,7 +118,8 @@ The server is now running and accessible at: `http://localhost:3000` (or the por
 ### 2. Local Development (Without Docker)
 
 If you prefer to run the Node.js application locally against a local PostgreSQL instance:
-```
+
+```bash
 # 1. Install dependencies
 npm install
 
@@ -134,11 +135,11 @@ npm start
 ## Running the Test Suite
 
 This project features a robust, isolated testing environment. A custom `pretest` hook automatically creates a dedicated `github_notifier_test` database before the tests run. This ensures integration tests are perfectly isolated and will not corrupt your development data.
-```
+
+```bash
 # Run code quality checks (ESLint)
 npm run lint
-```
-```
+
 # Run the complete test suite (Unit & Integration)`
 npm test
 ``` 
